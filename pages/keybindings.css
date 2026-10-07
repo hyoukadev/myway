@@ -1,0 +1,201 @@
+/* VimKeys Key Bindings editor */
+
+body { background: var(--vk-bg); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.header-actions #search {
+  width: 220px;
+  padding: 8px 12px;
+}
+.toggle.compact { padding: 0; font-size: 13px; color: var(--vk-text-muted); }
+
+main#groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+  margin: 8px 0 120px;
+}
+
+.group {
+  background: var(--vk-surface);
+  border: 1px solid var(--vk-border);
+  border-radius: var(--vk-radius);
+  box-shadow: var(--vk-shadow);
+  overflow: hidden;
+  break-inside: avoid;
+}
+.group > header {
+  padding: 12px 16px;
+  background: var(--vk-surface-2);
+  border-bottom: 1px solid var(--vk-border);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--vk-text-muted);
+}
+.group > header:not(:first-child) { margin-top: 0; }
+
+.binding {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--vk-border);
+}
+.group .binding:last-child { border-bottom: none; }
+.binding .desc {
+  font-size: 13.5px;
+  color: var(--vk-text);
+  line-height: 1.35;
+}
+.binding .desc small {
+  display: block;
+  color: var(--vk-text-faint);
+  font-size: 11.5px;
+}
+.binding .keys {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* Key cap */
+kbd, .keycap {
+  font-family: var(--vk-mono);
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 22px;
+  height: 24px;
+  padding: 0 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: var(--vk-surface);
+  border: 1px solid var(--vk-border-strong);
+  border-bottom-width: 2px;
+  color: var(--vk-text);
+  box-shadow: var(--vk-shadow-sm);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  user-select: none;
+}
+.keycap:hover {
+  border-color: var(--vk-primary);
+  color: var(--vk-primary);
+  transform: translateY(-1px);
+}
+.keycap.recording {
+  background: var(--vk-primary);
+  border-color: var(--vk-primary);
+  color: #fff;
+  animation: pulse 1s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 91, 219, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(59, 91, 219, 0); }
+}
+
+.keycap.empty, .keycap.unbound {
+  color: var(--vk-text-faint);
+  border-style: dashed;
+  font-weight: 400;
+}
+.keycap.custom {
+  border-color: var(--vk-accent);
+  color: var(--vk-primary);
+}
+
+.binding .actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.binding:hover .actions { opacity: 1; }
+.icon-btn {
+  border: none;
+  background: none;
+  color: var(--vk-text-faint);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+.icon-btn:hover { color: var(--vk-danger); background: var(--vk-surface-2); }
+
+.binding.advanced { display: none; }
+body.show-advanced .binding.advanced { display: flex; }
+
+.binding.dimmed { display: none; }
+
+/* Recorder overlay */
+.recorder {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 17, 21, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.recorder.hidden { display: none; }
+.recorder-card {
+  background: var(--vk-surface);
+  border: 1px solid var(--vk-border);
+  border-radius: 18px;
+  padding: 28px 36px;
+  box-shadow: var(--vk-shadow);
+  text-align: center;
+  min-width: 320px;
+}
+.recorder-card h3 { margin: 0 0 6px; font-size: 18px; }
+.recorder-hint { margin: 0 0 16px; color: var(--vk-text-muted); font-size: 13px; }
+.recorder-hint span { color: var(--vk-text); font-weight: 500; }
+.recorder-keys {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.recorder-keys .keycap {
+  min-width: 32px;
+  height: 36px;
+  font-size: 15px;
+}
+.recorder-foot { margin: 0; font-size: 12px; color: var(--vk-text-faint); }
+.recorder-foot kbd {
+  cursor: default;
+  font-size: 11px;
+  height: 20px;
+}
+
+/* Banner */
+.banner {
+  padding: 10px 16px;
+  border-radius: var(--vk-radius-sm);
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+.banner.hidden { display: none; }
+.banner.conflict { background: #fff4e6; color: #8a4b00; border: 1px solid #ffd9a8; }
+.banner.info { background: var(--vk-primary-soft); color: var(--vk-primary); border: 1px solid #c7d6ff; }
+
+.hidden { display: none !important; }
+
+@media (max-width: 640px) {
+  .header-actions { width: 100%; }
+  .header-actions #search { width: 100%; }
+  main#groups { grid-template-columns: 1fr; }
+}

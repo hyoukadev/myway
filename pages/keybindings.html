@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>myway — Key Bindings</title>
+    <meta charset="UTF-8">
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="options.css">
+    <link rel="stylesheet" type="text/css" href="keybindings.css">
+    <script src="keybindings.js" type="module"></script>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <div class="app-header">
+        <div class="brand">
+          <img src="../icons/icon48.png" alt="" class="brand-logo" />
+          <div>
+            <h1 class="brand-name">Key Bindings</h1>
+            <p class="brand-tagline">Click any key to rebind it. Press <kbd>Esc</kbd> to cancel a recording.</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <input id="search" type="text" placeholder="Search commands…" autocomplete="off" />
+          <label class="toggle compact">
+            <input id="show-advanced" type="checkbox" />
+            <span>Show advanced</span>
+          </label>
+          <button id="reset-all" class="btn">Reset all to defaults</button>
+          <button id="save" class="btn btn-primary" disabled>No changes</button>
+        </div>
+      </div>
+
+      <div id="status-banner" class="banner hidden"></div>
+
+      <main id="groups"></main>
+
+      <footer>
+        <div id="footer-content">
+          <div id="footer-help-text">
+            Changes apply after you click <strong>Save</strong>. Prefer raw text? Edit
+            <a href="options.html" target="_blank">Custom key mappings</a> in Options.
+          </div>
+          <div id="footer-save-options">
+            <button id="save-2" class="btn btn-primary" disabled>Save</button>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Recording overlay -->
+    <div id="recorder" class="recorder hidden">
+      <div class="recorder-card">
+        <h3 id="recorder-title">Press a key…</h3>
+        <p class="recorder-hint" id="recorder-hint">for <span></span></p>
+        <div class="recorder-keys" id="recorder-keys"></div>
+        <p class="recorder-foot">Press <kbd>Esc</kbd> to cancel · <kbd>Enter</kbd> to confirm</p>
+      </div>
+    </div>
+  </body>
+</html>

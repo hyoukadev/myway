@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>myway Options</title>
+    <meta charset="UTF-8">
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="options.css">
+    <link rel="stylesheet" type="text/css" href="../content_scripts/vimium.css" />
+    <script src="options.js" type="module"></script>
+  </head>
+
+  <body class="vimium-body">
+    <div id="wrapper">
+      <div class="app-header">
+        <div class="brand">
+          <img src="../icons/icon48.png" alt="" class="brand-logo" />
+          <div>
+            <h1 class="brand-name">myway</h1>
+            <p class="brand-tagline">Manage which sites get keyboard shortcuts.</p>
+          </div>
+        </div>
+      </div>
+
+      <input type="hidden" name="settingsVersion" />
+
+      <!-- Hidden fields: these keep options.js's setFormFromSettings/getSettingsFromForm working
+           without showing any UI. myway's settings page now only exposes the URL whitelist. -->
+      <div style="display:none" id="hidden-settings">
+        <textarea name="keyMappings"></textarea>
+        <textarea name="searchEngines"></textarea>
+        <input name="scrollStepSize" type="number" />
+        <input name="linkHintCharacters" type="text" />
+        <input name="linkHintNumbers" type="text" />
+        <input name="smoothScroll" type="checkbox" />
+        <input name="filterLinkHints" type="checkbox" />
+        <input name="waitForEnterForFilteredHints" type="checkbox" />
+        <input name="grabBackFocus" type="checkbox" />
+        <input name="hideHud" type="checkbox" />
+        <input name="hideUpdateNotifications" type="checkbox" />
+        <input name="regexFindMode" type="checkbox" />
+        <input name="ignoreKeyboardLayout" type="checkbox" />
+        <input name="previousPatterns" type="text" />
+        <input name="nextPatterns" type="text" />
+        <textarea name="userDefinedLinkHintCss"></textarea>
+        <input name="newTabCustomUrl" type="text" />
+        <input id="browserNewTabPage" type="radio" name="newTabDestination" value="browserNewTabPage" checked />
+        <input id="vimiumNewTabPage" type="radio" name="newTabDestination" value="vimiumNewTabPage" />
+        <input id="customUrl" type="radio" name="newTabDestination" value="customUrl" />
+        <input id="openVomnibarOnNewTabPage" type="checkbox" name="openVomnibarOnNewTabPage" />
+      </div>
+
+      <main class="cards">
+        <section id="section-keys" class="card">
+          <header class="card-header">
+            <h2>Site rules</h2>
+          </header>
+
+          <div class="card-body">
+            <p class="example" style="margin-top:0">
+              Control where myway is active. Each rule matches a URL pattern.
+              Leave <em>Keys</em> blank to disable myway entirely on that site,
+              or list specific keys to pass through to the page.
+            </p>
+
+            <div class="field">
+              <div id="exclusion-scroll-box">
+                <table id="exclusion-rules">
+                  <tr>
+                    <td><span class="exclusion-header-text">URL pattern</span></td>
+                    <td><span class="exclusion-header-text">Keys to pass through</span></td>
+                  </tr>
+                </table>
+              </div>
+              <button id="exclusion-add-button" class="btn">+ Add rule</button>
+            </div>
+            <p class="example">
+              <strong>Pattern</strong> is a URL regex. <code>*</code> matches zero or more characters.<br>
+              <strong>Keys</strong>: leave blank = myway off on this site; or type keys (e.g. <code>j</code>)
+              that myway should <em>not</em> capture and pass to the page instead.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div id="footer-content">
+          <div id="footer-help-text">
+            Press <strong>?</strong> on any page for the full key map.
+          </div>
+          <div id="footer-save-options">
+            <button id="save" class="btn btn-primary" disabled="disabled">No changes</button>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <template id="exclusion-rule-template">
+      <tr class="rule">
+        <td>
+          <input type="text" name="pattern" spellcheck="false" placeholder="https://example.com/*" />
+        </td>
+        <td>
+          <input type="text" name="passKeys" spellcheck="false" placeholder="All keys disabled" />
+        </td>
+        <td>
+          <input type="button" class="remove" value="&#x2716;" />
+        </td>
+      </tr>
+    </template>
+  </body>
+</html>

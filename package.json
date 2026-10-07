@@ -1,0 +1,24 @@
+{
+  "name": "myway",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build tooling for the myway browser extension (icon rasterization + store packaging).",
+  "type": "module",
+  "scripts": {
+    "build": "node build_scripts/build.js",
+    "icons": "node build_scripts/build_icons.js",
+    "assets": "node build_scripts/build_store_assets.js",
+    "rebrand": "node build_scripts/rebrand.js",
+    "check": "node build_scripts/check.js",
+    "smoke": "node build_scripts/smoke.js",
+    "screenshots": "node build_scripts/capture_screenshots.js",
+    "finalize": "node build_scripts/finalize.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  },
+  "dependencies": {
+    "adm-zip": "^0.6.0",
+    "puppeteer-core": "^25.3.0"
+  }
+}
